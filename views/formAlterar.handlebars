@@ -1,0 +1,117 @@
+<main class="container mt-5">
+
+  <form action="/fornecedores/alterar/{{fornecedor.CNPJ}}" method="post" class="col-sm-10">
+    <div class="form-group">
+      <label for="NOME">Nome</label>
+      <input type="text" class="form-control" id="NOME" name="NOME" placeholder="Nome" value="{{fornecedor.NOME}}">
+    </div>
+
+    <div class="form-group">
+      <label for="RAZAO_SOCIAL">Razão Social</label>
+      <input type="text" class="form-control" id="RAZAO_SOCIAL" name="RAZAO_SOCIAL" placeholder="Razão Social" value="{{fornecedor.RAZAO_SOCIAL}}">
+    </div>
+
+    <div class="form-group">
+      <label for="CNPJ">CNPJ</label>
+      <input type="text" class="form-control" id="CNPJ" name="CNPJ" placeholder="CNPJ" value="{{fornecedor.CNPJ}}">
+    </div>
+
+    <div class="form-group" id="div_IE_STATUS">
+      <label for="IE_STATUS">Tem Inscrição Estadual?</label>
+      <select class="form-control" id="IE_STATUS" name="IE_STATUS">
+        <option value="true" {{#if fornecedor.IE_STATUS}} selected {{/if}}>Sim</option>
+        <option value="false" {{#unless fornecedor.IE_STATUS}} selected {{/unless}}>Não</option>
+      </select>
+    </div>
+
+    {{#if fornecedor.IE_STATUS}}
+      <div class="form-group" id="div_IE_NUMERO">
+        <label for="IE_NUMERO">Número da Inscrição Estadual</label>
+        <input type="text" class="form-control" id="IE_NUMERO" name="IE_NUMERO" placeholder="Número da Inscrição Estadual" value="{{fornecedor.IE_NUMERO}}">
+      </div>
+    {{/if}}
+
+    <div class="form-group">
+      <label for="CONTR_ICMS">Contribuinte do ICMS?</label>
+      <select class="form-control" id="CONTR_ICMS" name="CONTR_ICMS">
+        <option value="true" {{#if fornecedor.CONTR_ICMS}} selected {{/if}}>Sim</option>
+        <option value="false" {{#unless fornecedor.CONTR_ICMS}} selected {{/unless}}>Não</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="EMAIL">Email</label>
+      <input type="email" class="form-control" id="EMAIL" name="EMAIL" placeholder="Email" value="{{fornecedor.EMAIL}}">
+    </div>
+
+    <div class="form-group">
+      <label for="TELEFONE">Telefone</label>
+      <input type="tel" class="form-control" id="TELEFONE" name="TELEFONE" placeholder="Telefone" value="{{fornecedor.TELEFONE}}">
+    </div>
+
+    <div class="form-group">
+      <label for="CEP">CEP</label>
+      <input type="text" class="form-control" id="CEP" name="CEP" placeholder="CEP" value="{{fornecedor.CEP}}">
+    </div>
+
+    <div class="form-group">
+      <label for="ENDERECO">Endereço</label>
+      <input type="text" class="form-control" id="ENDERECO" name="ENDERECO" placeholder="Endereço" value="{{fornecedor.ENDERECO}}">
+    </div>
+
+    <div class="form-group">
+      <label for="ENDEREDO_NUMERO">Número do Endereço</label>
+      <input type="text" class="form-control" id="ENDEREDO_NUMERO" name="ENDEREDO_NUMERO" placeholder="Número do Endereço" value="{{fornecedor.ENDEREDO_NUMERO}}">
+    </div>
+
+    <div class="form-group">
+      <label for="BAIRRO">Bairro</label>
+      <input type="text" class="form-control" id="BAIRRO" name="BAIRRO" placeholder="Bairro" value="{{fornecedor.BAIRRO}}">
+    </div>
+
+    <input type="submit" value="Enviar" />
+  </form>
+</main>
+
+<script>
+  //Script para deixar o input da inscrição estadual dinâmico
+  const elemento_IE_STATUS = document.getElementById("IE_STATUS")
+  console.log(elemento_IE_STATUS)
+  
+  elemento_IE_STATUS.addEventListener("change", function(){
+    const valorAtual = this.value
+    if(valorAtual === "false"){
+
+      //remover div IE_NUMERO
+      const div_IE_NUMERO = document.getElementById("div_IE_NUMERO")
+      div_IE_NUMERO.parentNode.removeChild(div_IE_NUMERO)
+    }else if(valorAtual === "true"){
+      //cria a div principal
+      let divPrincipal = document.createElement('div');
+      divPrincipal.classList.add('form-group');
+      divPrincipal.id = 'div_IE_NUMERO';
+
+      //cria a label
+      let label = document.createElement('label');
+      label.textContent = 'Número da Inscrição Estadual';
+
+      //cria o input
+      let input = document.createElement('input');
+      input.type = 'text';
+      input.classList.add('form-control');
+      input.name = 'IE_NUMERO';
+      input.placeholder = 'Número da Inscrição Estadual';
+
+      //Adiciona a label e o input na div
+      divPrincipal.appendChild(label);
+      divPrincipal.appendChild(input);
+
+      //adiciona a div depois do select da inscriçao estadual
+      const div_IE_STATUS = document.getElementById("div_IE_STATUS")
+      div_IE_STATUS.after(divPrincipal);
+
+    }
+  });
+
+
+</script>

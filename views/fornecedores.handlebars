@@ -1,0 +1,87 @@
+
+<main class="container">
+	<h1>Listagem de Fornecedores</h1>
+	<a class="btn btn-primary mt-5" href ="/fornecedores/cadastrar"
+		<button type="button" class="btn btn-primary">+ Adicionar Fornecedor</button>
+	</a>
+    
+  <div class="table-responsive mt-5">
+    <table class="table table-bordered text-center text-capitalize">
+      <tr class="bg-primary table-active text-uppercase text-white">
+        <th scope="col">ID</th>
+        <th scope="col">CNPJ</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Razão Social</th>
+        <th scope="col">Tem Incrição Estadual?</th>
+        <th scope="col">Número da Incrição Estadual</th>
+        <th scope="col">Contribuinte do ICMS</th>
+        <th scope="col">Alterar</th>
+		<th scope="col">Detalhe</th>
+        <th scope="col">Excluir</th>
+    
+      </tr>
+      {{#if lista_fornecedor}}
+        {{#each lista_fornecedor}}
+          <tr>
+            <td>{{this.ID}}</td>
+            <td>
+              <a href="/fornecedores/{{this.CNPJ}}">{{this.CNPJ}}</a>
+            </td>
+            <td>{{this.NOME}}</td>
+            <td>{{this.RAZAO_SOCIAL}}</td>
+
+            {{#if this.IE_STATUS}}
+              <td><i class="bi bi-toggle-on" style="font-size:30px;"></i></td>
+            {{else}}
+              <td><i class="bi bi-toggle-off" style="font-size:30px;"></i></td>
+            {{/if}}
+
+            {{#if this.IE_NUMERO}}
+              <td>{{this.IE_NUMERO}}</td>
+            {{else}}
+              <td>Não tem</td>
+
+            {{/if}}
+            {{#if this.CONTR_ICMS}}
+              <td><i class="bi bi-toggle-on" style="font-size:30px;"></i></td>
+            {{else}}
+              <td><i class="bi bi-toggle-off" style="font-size:30px;"></i></td>
+            {{/if}}
+            <td>
+              <a href='fornecedores/alterar/{{this.CNPJ}}'>
+                <i class="bi bi-pencil-square"style="font-size:30px"></i>
+			  </a>
+			</td>
+			<td>
+              <a href='/fornecedores/{{this.CNPJ}}'>
+                <i class="bi bi-clipboard-fill" style="font-size:30px"></i>
+			  </a>
+			</td>
+             
+            <td>
+				<a href="/fornecedores/remover/{{this.CNPJ}}">
+					<i class="bi bi-trash3-fill"style="font-size:30px"></i>
+				</a>
+            </td>
+          </tr>
+        {{/each}}
+        
+      {{else}}
+      <tr>
+        <td colspan="3">Não há usuários</td>
+      </tr>
+      {{/if}}
+        
+    </table>
+  </div>
+
+ 
+</main>
+
+<script>
+  function recarregarPagina(){
+    window.location.reload();
+  }
+  
+  
+</script>
