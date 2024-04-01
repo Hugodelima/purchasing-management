@@ -31,8 +31,8 @@ function modificarDados(caminho,conteudo){
 const atualJSON = pegarDados("./data/fornecedor.json");
 let contador = 1;
 if (atualJSON.length > 0) {
-  const maxID = atualJSON.reduce((max, item) => (item.ID > max ? item.ID : max), 0);
-  contador = maxID + 1;
+  const ultimoElemento = atualJSON[atualJSON.length - 1]
+  contador = ultimoElemento.ID + 1
 }
 
 
