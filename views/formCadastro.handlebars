@@ -74,10 +74,9 @@
 </main>
 
 
-<script>
+<script type="text/javascript">
   //Script para deixar o input da inscrição estadual dinâmico
   const elemento_IE_STATUS = document.getElementById("IE_STATUS")
-  console.log(elemento_IE_STATUS)
   
   elemento_IE_STATUS.addEventListener("change", function(){
     const valorAtual = this.value
@@ -113,6 +112,9 @@
 
     }
   });
+  $(document).ready(function(){	
+		$("#CNPJ").mask("99.999.999/9999-99");
+	});
 
 
 </script>
