@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../mascaraFunction/jquery-1.2.6.pack.js" type="text/javascript"></script>
+    <script src="../mascaraFunction/jquery.maskedinput-1.1.4.pack.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <title>Título do seu Site</title>
+
+    <form name="formulario" method="get" action="">
+        <input name="cnpj" type="text" id="cnpj"/>
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function(){	
+            $("#cnpj").mask("99.999.999/9999-99");
+        });
+    </script>
+</body>
+
+</html>

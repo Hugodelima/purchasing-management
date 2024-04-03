@@ -1,21 +1,35 @@
 <main class="container mt-5">
   <h1>Cadastro de Fornecedor</h1>
 
-  <form action="/fornecedores/novo" method="post" class="col-sm-10">
-    <div class="form-group">
-      <label for="NOME">Nome</label>
-      <input type="text" class="form-control" id="NOME" name="NOME" placeholder="Nome">
-    </div>
+  <form action="/fornecedores/novo" method="post" class="col-sm-10 needs-validation" novalidate >
 
+	
+	<div class="form-group">
+		<label for="validationCustom01" class="form-label">Nome</label>
+		<input type="text" class="form-control" id="NOME" required>
+		<div class="valid-feedback">
+		  Parece bom
+		</div>
+		<div class="invalid-feedback">
+			Informe um nome válido
+		</div>
+	 </div>
+	
     <div class="form-group">
       <label for="RAZAO_SOCIAL">Razão Social</label>
       <input type="text" class="form-control" id="RAZAO_SOCIAL" name="RAZAO_SOCIAL" placeholder="Razão Social">
     </div>
 
-    <div class="form-group">
-      <label for="CNPJ">CNPJ</label>
-      <input type="text" class="form-control" id="CNPJ" name="CNPJ" placeholder="CNPJ">
-    </div>
+	<div class="form-group">
+		<label for="CNPJ">CNPJ</label>
+		<input type="text" class="form-control" id="CNPJ" name="CNPJ" required>
+		<div class="valid-feedback">
+		  Parece bom
+		</div>
+		<div class="invalid-feedback">
+			Informe um CNPJ válido
+		</div>
+	 </div>
 
     <div class="form-group" id="div_IE_STATUS">
       <label for="IE_STATUS">Tem Inscrição Estadual?</label>
@@ -67,9 +81,15 @@
       <label for="BAIRRO">Bairro</label>
       <input type="text" class="form-control" id="BAIRRO" name="BAIRRO" placeholder="Bairro">
     </div>
+	
+	<div class="form-group">
+		<button class="btn btn-primary" type="submit" data-mdb-ripple-init value="Enviar">Submit form</button>
+	</div>
+</form>
+	
 
-    <input type="submit" value="Enviar" />
-  </form>
+
+  
 
 </main>
 
@@ -113,8 +133,29 @@
     }
   });
   $(document).ready(function(){	
-		$("#CNPJ").mask("99.999.999/9999-99");
+	$("#CNPJ").mask("99.999.999/9999-99");
 	});
+	//validação
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	(() => {
+	  'use strict'
+
+	  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+	  const forms = document.querySelectorAll('.needs-validation')
+
+	  // Loop over them and prevent submission
+	  Array.from(forms).forEach(form => {
+		form.addEventListener('submit', event => {
+		  if (!form.checkValidity()) {
+			event.preventDefault()
+			event.stopPropagation()
+		  }
+
+		  form.classList.add('was-validated')
+		}, false)
+	  })
+	})()
+	
 
 
 </script>
