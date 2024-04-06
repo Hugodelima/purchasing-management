@@ -125,10 +125,6 @@ app.post("/fornecedores/alterar/:cnpj", (req, res) =>{
 	modificarDados("./data/fornecedor.json",conteudoAtual)
 
 	res.redirect("/fornecedores");
-
-	
-	
-
 })
 
 //Remover fornecedor

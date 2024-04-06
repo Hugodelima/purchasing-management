@@ -1,9 +1,5 @@
 <main class="container">
-  <h1 class="mt-3">Dados do Fornecedor
-    <img src="https://static.thenounproject.com/png/1510484-200.png" class="img-fluid" style="width: 5%">
-  </h1>
-
-
+  <h1 class="mt-3">Dados do Fornecedor</h1>
 
   <div class="border border-5 mt-3 p-3 border-primary col-lg">
     
@@ -21,7 +17,7 @@
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>CNPJ</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.CNPJ}}</div>
+      <div class="col-md-6 col-sm-6">{{converterParaCNPJ fornecedor.CNPJ}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Tem Inscrição Estadual?</b></div>
@@ -59,8 +55,4 @@
       <div class="col-md-6 col-sm-6"><b>Bairro</b></div>
       <div class="col-md-6 col-sm-6">{{fornecedor.BAIRRO}}</div>
   </div>
-
-
-  
-  
 </main>
