@@ -6,26 +6,22 @@
 	
 	<div class="form-group">
 		<label for="validationCustom01" class="form-label">Nome</label>
-		<input type="text" class="form-control" id="NOME" required>
-		<div class="valid-feedback">
-		  Parece bom
-		</div>
+		<input type="text" class="form-control" id="NOME" name="NOME" required>
 		<div class="invalid-feedback">
-			Informe um nome válido
+			Informe um nome 
 		</div>
 	 </div>
 	
     <div class="form-group">
       <label for="RAZAO_SOCIAL">Razão Social</label>
-      <input type="text" class="form-control" id="RAZAO_SOCIAL" name="RAZAO_SOCIAL" placeholder="Razão Social">
+      <input type="text" class="form-control" id="RAZAO_SOCIAL" name="RAZAO_SOCIAL" required>
+	  <div class="invalid-feedback">Informe uma razão social
+		</div>
     </div>
 
 	<div class="form-group">
 		<label for="CNPJ">CNPJ</label>
 		<input type="text" class="form-control" id="CNPJ" name="CNPJ" required>
-		<div class="valid-feedback">
-		  Parece bom
-		</div>
 		<div class="invalid-feedback">
 			Informe um CNPJ válido
 		</div>
@@ -33,20 +29,24 @@
 
     <div class="form-group" id="div_IE_STATUS">
       <label for="IE_STATUS">Tem Inscrição Estadual?</label>
-      <select class="form-control" id="IE_STATUS" name="IE_STATUS">
+      <select class="form-control" id="IE_STATUS" name="IE_STATUS" required>
         <option selected value="true">Sim</option>
         <option value="false">Não</option>
       </select>
     </div>
 
     <div class="form-group" id="div_IE_NUMERO">
-      <label for="IE_NUMERO" id="label_IE_numero">Número da Inscrição Estadual</label>
-      <input type="text" class="form-control" id="IE_NUMERO" name="IE_NUMERO" placeholder="Número da Inscrição Estadual">
+      <label for="validationCustom01" class="form-label">Número da Inscrição Estadual</label>
+      <input type="text" class="form-control" id="IE_NUMERO" name="IE_NUMERO" placeholder="XXXXXXXXX" required>
+		<div class="invalid-feedback">
+			Digite o número da inscrição estadual
+		</div>
     </div>
+	
 
     <div class="form-group">
       <label for="CONTR_ICMS">Contribuinte do ICMS?</label>
-      <select class="form-control" id="CONTR_ICMS" name="CONTR_ICMS">
+      <select class="form-control" id="CONTR_ICMS" name="CONTR_ICMS" required>
         <option value="true">Sim</option>
         <option value="false">Não</option>
       </select>
@@ -54,32 +54,50 @@
 
     <div class="form-group">
       <label for="EMAIL">Email</label>
-      <input type="email" class="form-control" id="EMAIL" name="EMAIL" placeholder="Email">
+      <input type="email" class="form-control" id="EMAIL" name="EMAIL" placeholder="Email" required>
+	  <div class="invalid-feedback">
+			Informe um e-mail válido
+		</div>
     </div>
 
     <div class="form-group">
       <label for="TELEFONE">Telefone</label>
-      <input type="tel" class="form-control" id="TELEFONE" name="TELEFONE" placeholder="Telefone">
+      <input type="tel" class="form-control" id="TELEFONE" name="TELEFONE" placeholder="Telefone" required>
+	  <div class="invalid-feedback">
+			Informe um número
+		</div>
     </div>
 
     <div class="form-group">
       <label for="CEP">CEP</label>
-      <input type="text" class="form-control" id="CEP" name="CEP" placeholder="CEP">
+      <input type="text" class="form-control" id="CEP" name="CEP" placeholder="CEP" required>
+	  <div class="invalid-feedback">
+			Informe um CEP
+		</div>
     </div>
 
     <div class="form-group">
       <label for="ENDERECO">Endereço</label>
-      <input type="text" class="form-control" id="ENDERECO" name="ENDERECO" placeholder="Endereço">
+      <input type="text" class="form-control" id="ENDERECO" name="ENDERECO" placeholder="Endereço" required>
+	  <div class="invalid-feedback">
+			Informe um endereço
+		</div>
     </div>
 
     <div class="form-group">
       <label for="ENDEREDO_NUMERO">Número do Endereço</label>
-      <input type="text" class="form-control" id="ENDEREDO_NUMERO" name="ENDEREDO_NUMERO" placeholder="Número do Endereço">
+      <input type="number" class="form-control" id="ENDEREDO_NUMERO" name="ENDEREDO_NUMERO" placeholder="Número do Endereço" required>
+	  <div class="invalid-feedback">
+			Informe um número do endereço
+		</div>
     </div>
 
     <div class="form-group">
       <label for="BAIRRO">Bairro</label>
-      <input type="text" class="form-control" id="BAIRRO" name="BAIRRO" placeholder="Bairro">
+      <input type="text" class="form-control" id="BAIRRO" name="BAIRRO" placeholder="Bairro" required>
+	  <div class="invalid-feedback">
+			Informe um bairro
+		</div>
     </div>
 	
 	<div class="form-group">
@@ -93,69 +111,4 @@
 
 </main>
 
-
-<script type="text/javascript">
-  //Script para deixar o input da inscrição estadual dinâmico
-  const elemento_IE_STATUS = document.getElementById("IE_STATUS")
-  
-  elemento_IE_STATUS.addEventListener("change", function(){
-    const valorAtual = this.value
-    if(valorAtual === "false"){
-
-      //remover div IE_NUMERO
-      const div_IE_NUMERO = document.getElementById("div_IE_NUMERO")
-      div_IE_NUMERO.parentNode.removeChild(div_IE_NUMERO)
-    }else if(valorAtual === "true"){
-      //cria a div principal
-      let divPrincipal = document.createElement('div');
-      divPrincipal.classList.add('form-group');
-      divPrincipal.id = 'div_IE_NUMERO';
-
-      //cria a label
-      let label = document.createElement('label');
-      label.textContent = 'Número da Inscrição Estadual';
-
-      //cria o input
-      let input = document.createElement('input');
-      input.type = 'text';
-      input.classList.add('form-control');
-      input.name = 'IE_NUMERO';
-      input.placeholder = 'Número da Inscrição Estadual';
-
-      //Adiciona a label e o input na div
-      divPrincipal.appendChild(label);
-      divPrincipal.appendChild(input);
-
-      //adiciona a div depois do select da inscriçao estadual
-      const div_IE_STATUS = document.getElementById("div_IE_STATUS")
-      div_IE_STATUS.after(divPrincipal);
-
-    }
-  });
-  $(document).ready(function(){	
-	$("#CNPJ").mask("99.999.999/9999-99");
-	});
-	//validação
-	// Example starter JavaScript for disabling form submissions if there are invalid fields
-	(() => {
-	  'use strict'
-
-	  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-	  const forms = document.querySelectorAll('.needs-validation')
-
-	  // Loop over them and prevent submission
-	  Array.from(forms).forEach(form => {
-		form.addEventListener('submit', event => {
-		  if (!form.checkValidity()) {
-			event.preventDefault()
-			event.stopPropagation()
-		  }
-
-		  form.classList.add('was-validated')
-		}, false)
-	  })
-	})()
-	
-
-
-</script>
+<script src="/js/formCadastro.js"></script>

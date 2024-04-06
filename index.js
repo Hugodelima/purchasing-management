@@ -1,11 +1,14 @@
 const express = require("express");
 const app = express();
 const fs = require("fs")
+const Handlebars = require("handlebars");
+const modificarCNPJ = require('node-cnpj');
 
 
 app.use(
   express.urlencoded({
     extended: true,
+	contextIsolation: false,
   })
 );
 
@@ -15,6 +18,15 @@ const exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs.engine());
 app.set("view engine", "handlebars");
+
+
+
+//função para converter string para a mascara cnpj na pagina fornecedores.handlebars
+Handlebars.registerHelper('converterParaCNPJ', function (cnpj) {
+	cnpj =  modificarCNPJ.mask(cnpj)
+	return cnpj;
+});
+
 
 //função para pegar os dados da API
 function pegarDados(caminho){
@@ -34,9 +46,6 @@ if (atualJSON.length > 0) {
   const ultimoElemento = atualJSON[atualJSON.length - 1]
   contador = ultimoElemento.ID + 1
 }
-
-
-
 
 //Home
 app.get("/", (req, res) => {
@@ -59,7 +68,7 @@ app.post("/fornecedores/novo", (req, res) => {
 	ID: contador++,
 	NOME: NOME,
 	RAZAO_SOCIAL: RAZAO_SOCIAL,
-	CNPJ: CNPJ,
+	CNPJ: modificarCNPJ.unMask(CNPJ),
 	IE_STATUS: IE_STATUS === "true" ? true : false,
 	IE_NUMERO: IE_NUMERO,
 	CONTR_ICMS: CONTR_ICMS === "true" ? true : false,
@@ -72,7 +81,6 @@ app.post("/fornecedores/novo", (req, res) => {
 	});
 
 	modificarDados("./data/fornecedor.json",conteudoAtual);
-  
 	res.redirect("/fornecedores");
 });
 

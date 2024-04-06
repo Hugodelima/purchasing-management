@@ -24,9 +24,7 @@
         {{#each lista_fornecedor}}
           <tr>
             <td>{{this.ID}}</td>
-            <td>
-              <a href="/fornecedores/{{this.CNPJ}}">{{this.CNPJ}}</a>
-            </td>
+            <td>{{converterParaCNPJ this.CNPJ}}</td>
             <td>{{this.NOME}}</td>
             <td>{{this.RAZAO_SOCIAL}}</td>
 
@@ -53,22 +51,50 @@
 			  </a>
 			</td>
 			<td>
-              <a href='/fornecedores/{{this.CNPJ}}'>
-                <i class="bi bi-clipboard-fill" style="font-size:30px"></i>
+        <a href='/fornecedores/{{this.CNPJ}}'>
+          <i class="bi bi-clipboard-fill" style="font-size:30px"></i>
 			  </a>
-			</td>
-             
-            <td>
+          
+			</td>       
+			<td>
 				<a href="/fornecedores/remover/{{this.CNPJ}}">
 					<i class="bi bi-trash3-fill"style="font-size:30px"></i>
 				</a>
-            </td>
-          </tr>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>       
+
+				
+      </td>
+      </tr>
         {{/each}}
         
       {{else}}
       <tr>
-        <td colspan="3">Não há usuários</td>
+        <td colspan="10">Não há usuários</td>
       </tr>
       {{/if}}
         
@@ -82,6 +108,10 @@
   function recarregarPagina(){
     window.location.reload();
   }
+
+
+	
+
   
   
 </script>
