@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # purchasing-management
 
 Para rodar o projeto:<br>
@@ -6,7 +5,7 @@ Para rodar o projeto:<br>
 1° Baixe o projeto <br>
 2° No terminal digite node "index.js" que ele vai começar a rodar o site<br>
 3° Acesse seu navegador colocando o url "localhost:4000/"<br>
-=======
+
 # 🛒 Purchasing Management
 
 Bem-vindo ao projeto de gerenciamento de compras!
@@ -48,4 +47,3 @@ Siga as etapas abaixo para executar o projeto em sua máquina local:
 ![Screenshot from 2024-06-23 12-30-01](https://github.com/Hugodelima/purchasing-management/assets/110146009/6419be50-845c-45ff-875d-c661eb240ec6)
 
 ![Screenshot from 2024-06-23 12-29-56](https://github.com/Hugodelima/purchasing-management/assets/110146009/24e0dfeb-e3bf-4506-b585-4a5809fb92ed)
->>>>>>> e0d635dbf0617a6b143a07efd22159dbf1175c4d
