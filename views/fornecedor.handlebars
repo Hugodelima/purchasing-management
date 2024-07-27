@@ -1,58 +1,64 @@
 <main class="container">
-  <h1 class="mt-3">Dados do Fornecedor</h1>
+  <h3 class="mt-3">Dados do Fornecedor</h3>
 
   <div class="border border-5 mt-3 p-3 border-primary col-lg">
     
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>ID</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.ID}}</div>
+      <div class="col-md-6 col-sm-6">{{fornecedor.id}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Nome</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.NOME}}</div>
+      <div class="col-md-6 col-sm-6">{{fornecedor.nome}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Razão Social</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.RAZAO_SOCIAL}}</div>
+      <div class="col-md-6 col-sm-6">{{fornecedor.razaoSocial_forn}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>CNPJ</b></div>
-      <div class="col-md-6 col-sm-6">{{converterParaCNPJ fornecedor.CNPJ}}</div>
+      <div class="col-md-6 col-sm-6">{{converterParaCNPJ fornecedor.cnpj_forn}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Tem Inscrição Estadual?</b></div>
-      <div class="col-md-6 col-sm-6">{{#if fornecedor.IE_STATUS}}Sim{{else}}Não{{/if}}</div>
+      <div class="col-md-6 col-sm-6">{{#if fornecedor.ieStatus_forn}}Sim{{else}}Não{{/if}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Número da Inscrição Estadual</b></div>
-      <div class="col-md-6 col-sm-6">{{#if fornecedor.IE_NUMERO}}{{fornecedor.IE_NUMERO}}{{else}}Não tem{{/if}}</div>
+      <div class="col-md-6 col-sm-6">{{#if fornecedor.ieNumero_forn}}{{fornecedor.ieNumero_forn}}{{else}}Não tem{{/if}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Contribuinte do ICMS</b></div>
-      <div class="col-md-6 col-sm-6">{{#if fornecedor.CONTR_ICMS}}Sim{{else}}Não{{/if}}</div>
+      <div class="col-md-6 col-sm-6">{{#if fornecedor.contrIcms_forn}}Sim{{else}}Não{{/if}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Email</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.EMAIL}}</div>
+      <div class="col-md-6 col-sm-6">{{fornecedor.email_forn}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Telefone</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.TELEFONE}}</div>
+      <div class="col-md-6 col-sm-6">{{fornecedor.telefone_forn}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>CEP</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.CEP}}</div>
+      <div class="col-md-6 col-sm-6">{{fornecedor.cep_forn}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Endereço</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.ENDERECO}}</div>
+      <div class="col-md-6 col-sm-6">{{fornecedor.endereco_forn}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Número</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.ENDEREDO_NUMERO}}</div>
+      <div class="col-md-6 col-sm-6">{{fornecedor.enderecoNumero_forn}}</div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-6"><b>Bairro</b></div>
-      <div class="col-md-6 col-sm-6">{{fornecedor.BAIRRO}}</div>
+      <div class="col-md-6 col-sm-6">{{fornecedor.bairro_forn}}</div>
+    </div>
   </div>
+
+  <a href="/menu/fornecedores">
+    <button type="button" class="btn btn-primary mt-3">Voltar</button>
+  </a>
+
 </main>

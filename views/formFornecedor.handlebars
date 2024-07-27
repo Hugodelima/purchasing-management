@@ -1,0 +1,113 @@
+<main class="container">
+  {{#if fornecedor}}
+  <h3 class="mt-3">Alterar Fornecedor</h3>
+  <form action="/menu/fornecedores/alterar/{{fornecedor.id}}" method="post" class="col-sm-10 needs-validation mt-5" novalidate>
+  {{else}}
+  <h3 class="mt-3">Cadastro de Fornecedor</h3>
+  <form action="/menu/fornecedores/novo" method="post" class="col-sm-10 needs-validation mt-5" novalidate>
+  {{/if}}
+
+	
+    <div class="form-group">
+        <label for="NOME">Nome</label>
+        <input type="text" class="form-control" id="NOME" name="NOME" placeholder="Nome" value="{{fornecedor.nome}}" required>
+        <div class="invalid-feedback">Por favor, preencha o nome.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="RAZAO_SOCIAL">Razão Social</label>
+        <input type="text" class="form-control" id="RAZAO_SOCIAL" name="RAZAO_SOCIAL" placeholder="Razão Social" value="{{fornecedor.razaoSocial_forn}}" required>
+        <div class="invalid-feedback">Por favor, preencha a razão social.</div>
+      </div>
+
+      <!-- Adicione a classe is-invalid para mostrar a mensagem de erro -->
+      <div class="form-group">
+        <label for="CNPJ">CNPJ</label>
+        <input type="text" class="form-control {{#if cnpjInvalido}}is-invalid{{/if}}" id="CNPJ" name="CNPJ" placeholder="CNPJ" value="{{fornecedor.cnpj_forn}}" required>
+        <div class="invalid-feedback">Por favor, preencha o CNPJ.</div>
+      </div>
+
+      <div class="form-group" id="div_IE_STATUS">
+        <label for="IE_STATUS">Tem Inscrição Estadual?</label>
+        <select class="form-control" id="IE_STATUS" name="IE_STATUS" required>
+          <option value="true" {{#if fornecedor.ieStatus_forn}} selected {{/if}}>Sim</option>
+          <option value="false" {{#unless fornecedor.ieStatus_forn}} selected {{/unless}}>Não</option>
+        </select>
+        <div class="invalid-feedback">Por favor, selecione se tem inscrição estadual.</div>
+      </div>
+
+      <!-- Adicione a classe is-invalid para mostrar a mensagem de erro -->
+      {{#if fornecedor.ieStatus_forn}}
+        <div class="form-group" id="div_IE_NUMERO">
+          <label for="IE_NUMERO">Número da Inscrição Estadual</label>
+          <input type="text" class="form-control {{#if ieNumeroInvalido}}is-invalid{{/if}}" id="IE_NUMERO" name="IE_NUMERO" placeholder="Número da Inscrição Estadual" value="{{fornecedor.ieNumero_forn}}" required>
+          <div class="invalid-feedback">Por favor, preencha o número da inscrição estadual.</div>
+        </div>
+      {{/if}}
+
+      <div class="form-group">
+        <label for="CONTR_ICMS">Contribuinte do ICMS?</label>
+        <select class="form-control" id="CONTR_ICMS" name="CONTR_ICMS" required>
+          <option value="true" {{#if fornecedor.contrIcms_forn}} selected {{/if}}>Sim</option>
+          <option value="false" {{#unless fornecedor.contrIcms_forn}} selected {{/unless}}>Não</option>
+        </select>
+        <div class="invalid-feedback">Por favor, selecione se é contribuinte do ICMS.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="EMAIL">Email</label>
+        <input type="email" class="form-control" id="EMAIL" name="EMAIL" placeholder="Email" value="{{fornecedor.email_forn}}" required>
+        <div class="invalid-feedback">Por favor, preencha um email válido.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="TELEFONE">Telefone</label>
+        <input type="tel" class="form-control" id="TELEFONE" name="TELEFONE" placeholder="Telefone" value="{{fornecedor.telefone_forn}}" required>
+        <div class="invalid-feedback">Por favor, preencha um número de telefone.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="CEP">CEP</label>
+        <input type="text" class="form-control" id="CEP" name="CEP" placeholder="CEP" value="{{fornecedor.cep_forn}}" required>
+        <div class="invalid-feedback">Por favor, preencha um CEP.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="ENDERECO">Endereço</label>
+        <input type="text" class="form-control" id="END23423342343242ERECO" name="ENDERECO" placeholder="Endereço" value="{{fornecedor.endereco_forn}}" required>
+        <div class="invalid-feedback">Por favor, preencha um endereço.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="ENDEREDO_NUMERO">Número do Endereço</label>
+        <input type="text" class="form-control" id="ENDEREDO_NUMERO" name="ENDEREDO_NUMERO" placeholder="Número do Endereço" value="{{fornecedor.enderecoNumero_forn}}" required>
+        <div class="invalid-feedback">Por favor, preencha um número do endereço.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="BAIRRO">Bairro</label>
+        <input type="text" class="form-control" id="BAIRRO" name="BAIRRO" placeholder="Bairro" value="{{fornecedor.bairro_forn}}" required>
+        <div class="invalid-feedback">Por favor, preencha um bairro.</div>
+      </div>
+
+      <!-- Adicione a classe is-invalid para mostrar a mensagem de erro -->
+      
+
+      <div class="form-group mt-1">
+        <a href="/menu/fornecedores">
+          <button type="button" class="btn btn-primary">Voltar</button>
+        </a>
+        <input type="submit" class="btn btn-primary float-right" value={{#if fornecedor}}Atualizar{{else}}Cadastrar{{/if}} />
+      </div>
+    </form>
+  
+</form>
+	
+
+</main>
+<script src="/jquery-1.2.6.pack.js" type="text/javascript"></script>
+<script src="/jquery.maskedinput-1.1.4.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/formCadastro.js"></script>
+<script src="/js/validacaoCadastro.js"></script>

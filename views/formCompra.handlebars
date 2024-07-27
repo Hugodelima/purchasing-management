@@ -1,0 +1,42 @@
+<main class="container">
+    {{#if compra}}
+    <h3 class="mt-3">Alterar Compra</h3>
+    <form action="/menu/compras/alterar/{{compra.id}}" method="post" class="col-sm-10 needs-validation mt-5" novalidate>
+    {{else}}
+    <h3 class="mt-3">Cadastro de Compra</h3>
+    <form action="/menu/compras/cadastrar" method="post" class="col-sm-10 needs-validation mt-5" novalidate>
+    {{/if}}
+
+        
+
+        <div class="form-group">
+            <label for="NOME" class="form-label">Código do Fornecedor</label>
+            <input type="text" class="form-control" id="fornecedorId" name="fornecedorId" value="{{compra.fornecedorId}}" required>
+            <div class="invalid-feedback">
+                Informe um código do fornecedor 
+            </div>
+        </div>
+        
+        <div class="form-group">
+
+            <label for="DESCRICAO">Data de Compra</label>
+            <input type="date" class="form-control" id="data" name="data" value="{{compra.dataCompra}}" required>
+            <div class="invalid-feedback">
+                Informe a data de compra
+            </div>
+        </div>
+        
+
+        
+            
+
+        <div class="form-group mt-5">
+            <a href="/menu/compras">
+                <button type="button" class="btn btn-primary">Voltar</button>
+            </a>
+            <input class="btn btn-primary float-right" type="submit" value={{#if produto}}Atualizar{{else}}Cadastrar{{/if}} />
+        </div>
+  
+    </form>
+</main>
+<script src="/js/validacaoCadastro.js"></script>

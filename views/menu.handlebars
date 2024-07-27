@@ -1,0 +1,36 @@
+{{#if session.userId}}
+
+<main class="container">
+    <div class="row">
+        <div class="col-12 cold-md-6 col-lg-4">
+            <div class="card m-4 border border-primary rounded border-top-0">
+                <h5 class="card-title text-center bg-dark text-light">Fornecedor</h5>
+                <img src="https://cdn-icons-png.flaticon.com/512/6405/6405084.png" class="card-img-top w-50 m-auto" alt="...">
+                <div class="card-body">
+                    <a href="/menu/fornecedores" class="btn btn-primary w-100">Gerenciar Fornecedor</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 cold-md-6 col-lg-4">
+            <div class="card m-4 border border-primary rounded border-top-0">
+                <h5 class="card-title text-center bg-dark text-light">Produto</h5>
+                <img src="https://cdn0.iconfinder.com/data/icons/shopping-and-retail-01-line-1/128/groceries_food_supermarket_shop_bazaar_marketplace_element_healthy_product_consumer_daily-use-item-512.png" class="card-img-top w-50 m-auto" alt="...">
+                <div class="card-body">
+                    <a href="/menu/produtos" class="btn btn-primary w-100">Gerenciar Produto</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 cold-md-6 col-lg-4">
+            <div class="card m-4 card m-4 border border-primary rounded border-top-0">
+                <h5 class="card-title text-center bg-dark text-light">Compra</h5>
+                <img src="https://icons.veryicon.com/png/o/miscellaneous/common-icons-17/purchase-21.png" class="card-img-top w-50 m-auto" alt="...">
+                <div class="card-body">
+                    <a href="/menu/compras" class="btn btn-primary w-100">Gerenciar Compra</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{{else}}
+{{/if}}

@@ -1,9 +1,54 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
+
 const fs = require("fs")
+
 const Handlebars = require("handlebars");
+
 const modificarCNPJ = require('node-cnpj');
 
+const conn = require("./db/conn");
+
+const rotasFornecedores = require("./routers/fornecedorRotas.js");
+const rotasProdutos = require ("./routers/produtoRotas.js")
+const rotasCompras = require("./routers/compraRotas.js")
+const rotasItemCompras = require("./routers/itemComprasRotas.js")
+const authRotas = require("./routers/authRotas");
+
+//cokies
+const session = require("express-session");
+const FileStore = require("session-file-store")(session)
+const flash = require("express-flash");
+
+//definicao e copnfiguracao da sessao
+app.use(session({
+  name:"session",
+  secret:"nosso_secret",
+  resave: false,
+  saveUninitialized: false,
+  store: new FileStore({
+    logFn: function () {},
+    path: require("path").join(__dirname, "sessions"),
+  }),
+  cookie: {
+    secure: false,
+    //maxAge:360000,
+    httpOnly:true,
+
+  },
+}));
+
+//flash mesages
+app.use(flash());
+
+app.use((req, res, next) => {
+  if (req.session.userId) {
+    res.locals.session = req.session;
+  }
+
+  next();
+});
 
 app.use(
   express.urlencoded({
@@ -16,7 +61,13 @@ app.use(express.json());
 app.use(express.static('public'))
 const exphbs = require("express-handlebars");
 
-app.engine("handlebars", exphbs.engine());
+app.engine("handlebars", exphbs.engine({//libera o acesso a propriedades que não são do objeto
+  defaultLayout: 'main',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true
+    }
+}));
 app.set("view engine", "handlebars");
 
 
@@ -27,135 +78,54 @@ Handlebars.registerHelper('converterParaCNPJ', function (cnpj) {
 	return cnpj;
 });
 
+Handlebars.registerHelper('pegarData', function (data) {
+  data = data.split('-')
+  const dia = data[2]
+  const mes = data[1]
+  const ano = data[0]
+  data = `${dia}/${mes}/${ano}`
+	return data
+});
 
-//função para pegar os dados da API
-function pegarDados(caminho){
-	const conteudo = fs.readFileSync(caminho, 'utf-8')
-	return JSON.parse(conteudo)
-}
-//função para modificar os dados da API
-function modificarDados(caminho,conteudo){
-	const arquivoAtualizado = JSON.stringify(conteudo)
-	fs.writeFileSync(caminho,arquivoAtualizado,'utf-8')
-}
 
-//ID
-const atualJSON = pegarDados("./data/fornecedor.json");
-let contador = 1;
-if (atualJSON.length > 0) {
-  const ultimoElemento = atualJSON[atualJSON.length - 1]
-  contador = ultimoElemento.ID + 1
-}
+
+
+//rotas
+app.use("/", authRotas);
+
+
+app.get("/", (req, res) => {
+  	res.render("menu");
+});
 
 //Home
-app.get("/", (req, res) => {
-  res.redirect("/fornecedores");
+app.get("/menu", (req, res) => {
+	res.render("menu");
 });
 
-//Cadastro de fornecedor (GET)
-app.get("/fornecedores/cadastrar", (req, res) => {
-  res.render("formCadastro");
+app.use("/menu", rotasFornecedores);
+app.use("/menu", rotasProdutos);
+app.use("/menu", rotasCompras);
+app.use("/menu", rotasItemCompras)
+
+
+
+
+
+
+
+
+
+
+app.listen(process.env.SERVER_PORT, () => {
+  console.log(`Server rodando `);
 });
 
-//Cadastro de fornecedor (POST)
-app.post("/fornecedores/novo", (req, res) => {
-
-	const { NOME, RAZAO_SOCIAL, CNPJ, IE_STATUS, IE_NUMERO, CONTR_ICMS, EMAIL, TELEFONE, CEP, ENDERECO, ENDEREDO_NUMERO, BAIRRO } = req.body;
-
-	var conteudoAtual = pegarDados("./data/fornecedor.json")
-
-	conteudoAtual.push({
-	ID: contador++,
-	NOME: NOME,
-	RAZAO_SOCIAL: RAZAO_SOCIAL,
-	CNPJ: modificarCNPJ.unMask(CNPJ),
-	IE_STATUS: IE_STATUS === "true" ? true : false,
-	IE_NUMERO: IE_NUMERO,
-	CONTR_ICMS: CONTR_ICMS === "true" ? true : false,
-	EMAIL: EMAIL,
-	TELEFONE: TELEFONE,
-	CEP: CEP,
-	ENDERECO: ENDERECO,
-	ENDEREDO_NUMERO: ENDEREDO_NUMERO,
-	BAIRRO: BAIRRO
-	});
-
-	modificarDados("./data/fornecedor.json",conteudoAtual);
-	res.redirect("/fornecedores");
-});
-
-//Alterar fornecedor (GET)
-app.get("/fornecedores/alterar/:cnpj", (req, res) => {
-	const CNPJ = (req.params.cnpj).toString()
-	const fornecedor = pegarDados("./data/fornecedor.json").find ((user)=> user.CNPJ === CNPJ)
-	res.render("formAlterar", {fornecedor});
-});
-
-//Alterar Fornecedor (POST)
-app.post("/fornecedores/alterar/:cnpj", (req, res) =>{
-	var conteudoAtual = pegarDados("./data/fornecedor.json")
-	const fornecedorCNPJantigo = (req.params.cnpj).toString()
-	const fornecedorIdentificador = conteudoAtual.find((user) => user.CNPJ === fornecedorCNPJantigo);
-
-	const { NOME, RAZAO_SOCIAL, CNPJ, IE_STATUS, IE_NUMERO, CONTR_ICMS, EMAIL, TELEFONE, CEP, ENDERECO, ENDEREDO_NUMERO, BAIRRO } = req.body;
-
-	
-	const indiceObjeto = conteudoAtual.findIndex((user)=> user.CNPJ === fornecedorCNPJantigo)
-
-
-	const fornecedorAlterado = ({
-		ID: fornecedorIdentificador.ID,
-		NOME: NOME,
-		RAZAO_SOCIAL: RAZAO_SOCIAL,
-		CNPJ: CNPJ,
-		IE_STATUS: IE_STATUS === "true" ? true : false,
-		IE_NUMERO: IE_NUMERO,
-		CONTR_ICMS: CONTR_ICMS === "true" ? true : false,
-		EMAIL: EMAIL,
-		TELEFONE: TELEFONE,
-		CEP: CEP,
-		ENDERECO: ENDERECO,
-		ENDEREDO_NUMERO: ENDEREDO_NUMERO,
-		BAIRRO: BAIRRO
-	});
-
-	conteudoAtual.splice(indiceObjeto, 1)
-	conteudoAtual.splice(indiceObjeto, 0 , fornecedorAlterado)
-
-	modificarDados("./data/fornecedor.json",conteudoAtual)
-
-	res.redirect("/fornecedores");
-})
-
-//Remover fornecedor
-app.get("/fornecedores/remover/:cnpj", (req, res) =>{
-	const CNPJ = (req.params.cnpj).toString()
-	const dadosAtual = pegarDados("./data/fornecedor.json")
-
-	const indiceObjeto = dadosAtual.findIndex((user) => user.CNPJ === CNPJ)
-	dadosAtual.splice(indiceObjeto, 1)
-
-	modificarDados("./data/fornecedor.json",dadosAtual)
-	res.redirect("/fornecedores");
-	
-})
-
-//Listagem de fornecedores
-app.get("/fornecedores", (req, res) => {
-	
-	const lista_fornecedor = pegarDados('./data/fornecedor.json')
-  	res.render("fornecedores", {lista_fornecedor});
-});
-
-//Ver fornecedor específico
-app.get("/fornecedores/:cnpj", (req, res) => {
-   const CNPJ = (req.params.cnpj).toString();
-   const fornecedor = pegarDados('./data/fornecedor.json').find((user) => user.CNPJ === CNPJ);
-  
-   res.render("fornecedor", { fornecedor });
-  
-});
-
-app.listen(4000, () => {
-  console.log(`Server rodando`);
-});
+conn
+  .sync({})
+  .then(() => {
+    console.log("Conectado com sucesso!");
+  })
+  .catch((err) => {
+    console.log("Erro: " + err);
+  });

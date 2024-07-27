@@ -1,0 +1,61 @@
+<main class="container">
+    {{#if produto}}
+    <h3 class="mt-3">Alterar Produto</h3>
+    <form action="/menu/produtos/alterar/{{produto.id}}" method="post" class="col-sm-10 needs-validation mt-5" novalidate>
+    {{else}}
+    <h3 class="mt-3">Cadastro de Produto</h3>
+    <form action="/menu/produtos/cadastrar" method="post" class="col-sm-10 needs-validation mt-5" novalidate>
+    {{/if}}
+
+        <div class="form-group">
+            <label for="NOME" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="NOME" name="NOME" value="{{produto.nome}}" required>
+            <div class="invalid-feedback">
+                Informe um nome 
+            </div>
+        </div>
+        
+        <div class="form-group">
+
+            <label for="DESCRICAO">Descrição</label>
+            <input type="text" class="form-control" id="DESCRICAO" name="DESCRICAO" value="{{produto.descricao}}" required>
+            <div class="invalid-feedback">
+                Informe uma descrição
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="UNIDADE">Unidade</label>
+            <input type="text" class="form-control validar-cnpj no-validation" id="UNIDADE" name="UNIDADE" value="{{produto.unidade}}" required minlength="2" maxlength="2">
+            <div class="invalid-feedback" id="feedback">
+                Informe à unidade com 2 caracteres exemplo: UN
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="QUANTIDADE">Quantidade</label>
+            <input type="number" class="form-control" id="QUANTIDADE" name="QUANTIDADE" value="{{produto.quantidade}}" required>
+            <div class="invalid-feedback">
+                Informe Quantidade
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="VALOR">Valor</label>
+            <input type="number" class="form-control" id="VALOR" name="VALOR" value="{{produto.valor}}" required>
+            <div class="invalid-feedback">
+                Informe o Valor
+            </div>
+        </div>
+
+        
+        <div class="form-group mt-1">
+            <a href="/menu/produtos">
+                <button type="button" class="btn btn-primary">Voltar</button>
+            </a>
+            <input class="btn btn-primary float-right" type="submit" value={{#if produto}}Atualizar{{else}}Cadastrar{{/if}} />
+        </div>
+  
+    </form>
+</main>
+<script src="/js/validacaoCadastro.js"></script>
