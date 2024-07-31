@@ -48,7 +48,7 @@ module.exports = class AuthController {
   }
 
   static async signupPost(req, res) {
-    const { email, password, confirmpassword } = req.body;
+    const { email, nome, password, confirmpassword } = req.body;
 
     // Verificação de senha
 
